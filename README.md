@@ -51,5 +51,5 @@ git push --force-with-lease
 git status 
 git log --oneline
 git add .                          
-git commit -m "utworzony plik sorting do sortowania kolumn"          
+git commit -m "utworzony form1.columns"          
 git push

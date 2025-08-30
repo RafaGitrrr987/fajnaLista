@@ -42,12 +42,8 @@ namespace WinFormsWywal3
                 AllowColumnReorder = true
             };
 
-            // Kolumny
-            listView.Columns.Add("ID", 140, HorizontalAlignment.Left);
-            listView.Columns.Add("Aktywny", 120, HorizontalAlignment.Left);
-            listView.Columns.Add("Nazwa", 360, HorizontalAlignment.Left);
-            listView.Columns.Add("Zaznaczony", 140, HorizontalAlignment.Left);
-            colNazwa = listView.Columns[2]; // ← zdefiniowane w Form1.Flex.cs
+            // <<< przeniesione do Form1.Columns.cs >>>
+            SetupColumns(); // definiuje kolumny i ustawia colNazwa
 
             // Dane testowe
             listView.BeginUpdate();
@@ -84,9 +80,9 @@ namespace WinFormsWywal3
         private static ListViewItem CreateRow(string id, string nazwa, bool aktywny, bool zaznaczony)
         {
             var item = new ListViewItem(id);
-            item.SubItems.Add("");
-            item.SubItems.Add(nazwa);
-            item.SubItems.Add("");
+            item.SubItems.Add("");     // Aktywny (checkbox)
+            item.SubItems.Add(nazwa);  // Nazwa
+            item.SubItems.Add("");     // Zaznaczony (checkbox)
             item.SubItems[1].Tag = aktywny;
             item.SubItems[3].Tag = zaznaczony;
             return item;
