@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace WinFormsWywal3
 {
-    // Główna część klasy – inicjalizacja, dane, zdarzenia, logika (bez rysowania i bez FLEX-a)
+    // Główna część klasy – inicjalizacja, dane, interakcje (bez rysowania, FLEX-a i sortowania)
     public partial class Form1 : Form
     {
         private SmoothListView listView = null!; // przypiszemy w InitializeListView
-        private int sortColumn = -1;
-        private bool sortAsc = true;
         private int hoverIndex = -1;
 
         public Form1()
@@ -46,14 +43,11 @@ namespace WinFormsWywal3
             };
 
             // Kolumny
-            listView.Columns.Add("ID", 140, HorizontalAlignment.Left); // 0
-            listView.Columns.Add("Aktywny", 120, HorizontalAlignment.Left); // 1 (checkbox)
-            listView.Columns.Add("Nazwa", 360, HorizontalAlignment.Left); // 2 (FLEX)
-            listView.Columns.Add("Zaznaczony", 140, HorizontalAlignment.Left); // 3 (checkbox)
-
-            // Ten symbol jest zdefiniowany w Form1.Flex.cs – ale to ta sama klasa (partial),
-            // więc możemy go ustawić tutaj bez problemu:
-            colNazwa = listView.Columns[2];
+            listView.Columns.Add("ID", 140, HorizontalAlignment.Left);
+            listView.Columns.Add("Aktywny", 120, HorizontalAlignment.Left);
+            listView.Columns.Add("Nazwa", 360, HorizontalAlignment.Left);
+            listView.Columns.Add("Zaznaczony", 140, HorizontalAlignment.Left);
+            colNazwa = listView.Columns[2]; // ← zdefiniowane w Form1.Flex.cs
 
             // Dane testowe
             listView.BeginUpdate();
@@ -67,7 +61,7 @@ namespace WinFormsWywal3
 
             // Interakcje
             listView.MouseClick += HandleClick;
-            listView.ColumnClick += SortByColumn;
+            listView.ColumnClick += SortByColumn; // ← metoda w Form1.Sorting.cs
             listView.MouseMove += ListView_MouseMove;
             listView.MouseLeave += (_, __) =>
             {
@@ -82,17 +76,17 @@ namespace WinFormsWywal3
             Controls.Add(listView);
 
             // Domyślne sortowanie + pierwsze dopasowanie
-            SetInitialSort(0, true);
-            FitFlexColumn();
+            SetInitialSort(0, true); // ← metoda w Form1.Sorting.cs
+            FitFlexColumn();         // ← metoda w Form1.Flex.cs
         }
 
         // Fabryka wiersza
         private static ListViewItem CreateRow(string id, string nazwa, bool aktywny, bool zaznaczony)
         {
             var item = new ListViewItem(id);
-            item.SubItems.Add("");      // Aktywny (checkbox)
-            item.SubItems.Add(nazwa);   // Nazwa
-            item.SubItems.Add("");      // Zaznaczony (checkbox)
+            item.SubItems.Add("");
+            item.SubItems.Add(nazwa);
+            item.SubItems.Add("");
             item.SubItems[1].Tag = aktywny;
             item.SubItems[3].Tag = zaznaczony;
             return item;
@@ -131,52 +125,7 @@ namespace WinFormsWywal3
             }
         }
 
-        // Sortowanie
-        private void SetInitialSort(int column, bool ascending)
-        {
-            sortColumn = column; sortAsc = ascending;
-            listView.ListViewItemSorter = new ListViewComparer(sortColumn, sortAsc);
-            listView.Sort();
-            listView.Refresh();
-        }
-
-        private void SortByColumn(object? sender, ColumnClickEventArgs e)
-        {
-            if (e.Column == sortColumn) sortAsc = !sortAsc;
-            else { sortColumn = e.Column; sortAsc = true; }
-
-            listView.ListViewItemSorter = new ListViewComparer(sortColumn, sortAsc);
-            listView.Sort();
-            listView.Refresh();
-            FitFlexColumn();
-        }
-
-        private sealed class ListViewComparer : IComparer
-        {
-            private readonly int col; private readonly bool asc;
-            public ListViewComparer(int column, bool ascending) { col = column; asc = ascending; }
-
-            public int Compare(object? x, object? y)
-            {
-                var i1 = (ListViewItem)x!;
-                var i2 = (ListViewItem)y!;
-
-                if (col == 1 || col == 3)
-                {
-                    bool b1 = i1.SubItems[col].Tag is bool v1 && v1;
-                    bool b2 = i2.SubItems[col].Tag is bool v2 && v2;
-                    int cmp = b1.CompareTo(b2);
-                    return asc ? cmp : -cmp;
-                }
-
-                string s1 = i1.SubItems[col].Text ?? "";
-                string s2 = i2.SubItems[col].Text ?? "";
-                int res = string.Compare(s1, s2, StringComparison.CurrentCultureIgnoreCase);
-                return asc ? res : -res;
-            }
-        }
-
-        // ListView z włączonym podwójnym buforowaniem
+        // Podwójnie buforowany ListView
         private sealed class SmoothListView : ListView
         {
             public SmoothListView()
