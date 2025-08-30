@@ -1,0 +1,66 @@
+## ——— Visual Studio / .NET ———
+# Katalogi buildów
+bin/
+obj/
+[Bb]uild/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+
+# VS cache i ustawienia u¿ytkownika
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Testy / narzêdzia
+TestResults/
+*.VisualState.xml
+*.vsp
+*.vspx
+*.coverage*
+*.codecoverage
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+# Zostaw packages.config pod kontrol¹ wersji:
+!packages/*/readme.txt
+!packages.config
+
+# Rider / ReSharper / inne IDE
+.idea/
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+*.sln.DotSettings.user
+
+# Logi / tymczasowe
+*.log
+*.tlog
+*.cache
+*.tmp
+*.temp
+
+# Systemowe œmieci
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# Publikacje (opcjonalnie)
+[Bb]in/[Rr]elease/
+[Bb]in/[Dd]ebug/
+publish/
+
+# Pliki generowane przez designer (opcjonalnie zostawiasz, jeœli generowane automatycznie)
+# (zwykle trzymamy .Designer.cs w repo, wiêc nie ignoruj)
+
+# Jeœli u¿ywasz VS Code i chcesz wykluczyæ lokalne ustawienia:
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
