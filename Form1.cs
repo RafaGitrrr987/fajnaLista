@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace WinFormsWywal3 // ← dopasuj do swojego namespace z Form1.Designer.cs
 {
-    public partial class Form1 : Form
+    public class Form1 : Form
     {
         private SmoothListView listView;
         private int sortColumn = -1;
@@ -45,7 +45,7 @@ namespace WinFormsWywal3 // ← dopasuj do swojego namespace z Form1.Designer.cs
             this.AutoScaleMode = AutoScaleMode.Font;
             this.Font = uiFont;
 
-            InitializeComponent();
+            //InitializeComponent();
             InitializeListView();
 
             this.Shown += (_, __) =>

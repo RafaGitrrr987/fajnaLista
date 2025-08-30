@@ -51,5 +51,5 @@ git push --force-with-lease
 git status 
 git log --oneline
 git add .                          
-git commit -m "utworzona klasa SampleData"          
+git commit -m "usuniety designer.cs"          
 git push
