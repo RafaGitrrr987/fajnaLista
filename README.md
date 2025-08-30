@@ -45,11 +45,16 @@ git push
 
 # twardo: cofnięcie gałęzi (wymaga force przy pushu)
 git branch backup-before-reset-$(Get-Date -Format yyyyMMdd-HHmm)
-git reset --hard <HASH>
+
 git push --force-with-lease
 
 git status 
 git log --oneline
 git add .                          
-git commit -m "usuniety designer.cs"          
+git commit -m "porzadki git clean -fd"          
 git push
+
+git reset --hard <HASH>
+git status
+Krok 2: Usuń wszystkie nieśledzone pliki
+git clean -fd
