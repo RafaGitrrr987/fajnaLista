@@ -86,10 +86,15 @@ namespace WinFormsWywal3 // ← dopasuj do swojego namespace z Form1.Designer.cs
             colNazwa = listView.Columns[2]; // zapamiętaj kolumnę „Nazwa” jako flex
 
             // Dane przykładowe
-            listView.Items.Add(CreateRow("A-001", "Śrubka", true, false));
-            listView.Items.Add(CreateRow("A-002", "Podkładka", false, true));
-            listView.Items.Add(CreateRow("B-100", "Nakrętka", true, true));
-            listView.Items.Add(CreateRow("C-777", "Zestaw montażowy", false, false));
+            //listView.Items.Add(CreateRow("A-001", "Śrubka", true, false));
+            //listView.Items.Add(CreateRow("A-002", "Podkładka", false, true));
+            //listView.Items.Add(CreateRow("B-100", "Nakrętka", true, true));
+            //listView.Items.Add(CreateRow("C-777", "Zestaw montażowy", false, false));
+
+            foreach (var row in SampleData.GetRows())
+            {
+                listView.Items.Add(CreateRow(row.Id, row.Nazwa, row.Aktywny, row.Zaznaczony));
+            }
 
             // Rysowanie
             listView.DrawColumnHeader += DrawColumnHeaderWithSortGlyph; // nagłówek: ciemne tło + jasny tekst + strzałka

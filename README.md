@@ -51,5 +51,5 @@ git push --force-with-lease
 git status 
 git log --oneline
 git add .                          
-git commit -m "przykladowe dane w tabeli"          
+git commit -m "utworzona klasa SampleData"          
 git push
