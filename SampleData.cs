@@ -6,6 +6,8 @@ namespace WinFormsWywal3
 {
     public static class SampleData
     {
+        // Zwracamy tablicę krotek (Id, Nazwa, Aktywny, Zaznaczony)
+        //public static (string Id, string Nazwa, bool Aktywny, bool Zaznaczony)[] GetRows() => new[]
         public static List<(string Id, string Nazwa, bool Aktywny, bool Zaznaczony)> GetRows()
         {
             return new List<(string, string, bool, bool)>
