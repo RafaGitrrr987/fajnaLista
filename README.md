@@ -51,5 +51,5 @@ git push --force-with-lease
 git status 
 git log --oneline
 git add .                          
-git commit -m "utworzony rendering rozdzielenie kodu"          
+git commit -m "utworzony plik do kolumny flex"          
 git push
