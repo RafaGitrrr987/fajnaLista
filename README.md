@@ -51,6 +51,7 @@ git push --force-with-lease
 git status 
 git log --oneline
 git add .                          
+<<<<<<< HEAD
 git commit -m "porzadki git clean -fd"          
 git push
 
@@ -58,3 +59,7 @@ git reset --hard <HASH>
 git status
 Krok 2: Usuń wszystkie nieśledzone pliki
 git clean -fd
+=======
+git commit -m "utworzony form1.columns"          
+git push
+>>>>>>> 4fc9ed1d2c1f8fcb12af9dcb823bd5c8691cf1ae
